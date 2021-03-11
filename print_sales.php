@@ -123,7 +123,7 @@ $product = $conn->query("SELECT * FROM product_list  order by name asc");
 				</tr>
 				<tr>
 					<th>
-						<p class="text-center"><i>This is not an official receipt.</i></p>
+						<p class="text-center"><i>Thank you for shopping from here.</i></p>
 					</th>
 				</tr>
 	</table>
