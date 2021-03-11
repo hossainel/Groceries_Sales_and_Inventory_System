@@ -114,3 +114,8 @@ if($action == "delete_sales"){
 		echo $save;
 }
 
+if($action == "select_date") {
+	$save = $crud->get_selected_date();
+	if($save)
+		echo $save;
+}

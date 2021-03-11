@@ -299,6 +299,7 @@ Class Action {
 		$data .= ", total_amount = '$tamount' ";
 		$data .= ", amount_tendered = '$amount_tendered' ";
 		$data .= ", amount_change = '$change' ";
+		//$data .= ", user_id = '$user_id' ";
 		
 		if(empty($id)){
 			$ref_no = sprintf("%'.08d\n", $ref_no);
@@ -362,6 +363,35 @@ Class Action {
 		$del2 = $this->db->query("DELETE FROM inventory where type = 2 and form_id = $id ");
 		if($del1 && $del2)
 			return 1;
+	}
+	function get_selected_date(){
+		extract($_POST);
+		if (!empty($e_date))
+			$n_date = strftime("%Y-%m-%d", strtotime("$e_date +1 day"));
+		if (empty($e_date) && empty($s_date))
+			return "Inseart date first.";
+		else if (empty($e_date) || $s_date == $e_date) {
+			$t_sum = $this->db->query("SELECT SUM(total_amount) AS amount FROM sales_list 
+				WHERE date(date_updated) = '$s_date'")->fetch_array(MYSQLI_ASSOC);
+			$t_exp = $this->db->query("SELECT SUM(total_amount) AS amount FROM receiving_list 
+				WHERE date(date_added) = '$s_date'")->fetch_array(MYSQLI_ASSOC);
+		}
+		else if ($s_date>$e_date) return "Starting date can never be greater than the Ending date!";
+		else {
+			$t_sum = $this->db->query("SELECT SUM(total_amount) AS amount FROM sales_list 
+				WHERE date_updated BETWEEN '$s_date' AND '$n_date'")->fetch_array(MYSQLI_ASSOC);
+			$t_exp = $this->db->query("SELECT SUM(total_amount) AS amount FROM receiving_list 
+				WHERE date_added BETWEEN '$s_date' AND '$n_date'")->fetch_array(MYSQLI_ASSOC);
+		}
+		if (empty($t_sum["amount"]))
+			$r = "No sales on that/those day(s)!";
+		else
+			$r = "Total Sale: ".$t_sum["amount"]." BDT";
+		if (empty($t_exp["amount"]))
+			$r .= "<br />No expense on that/those day(s)!";
+		else
+			$r .= "<br />Total Expense: ".$t_exp["amount"]." BDT";
+		return $r;
 	}
 
 }
