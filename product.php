@@ -56,7 +56,7 @@
 							</div>
 						<div class="form-group">
 							<label class="control-label">Product Name</label>
-							<input type="text" class="form-control" name="name" >
+							<input type="text" class="form-control" name="name" required>
 						</div>
 						<div class="form-group">
 								<label class="control-label">Photo</label><div id="image-holder"></div>
@@ -69,7 +69,7 @@
 						</div>
 						<div class="form-group">
 							<label class="control-label">Product Price</label>
-							<input type="number" step="any" class="form-control text-right" name="price" >
+							<input type="number" step="any" class="form-control text-right" name="price" required>
 						</div>		
 					</div>
 					<div class="card-footer">

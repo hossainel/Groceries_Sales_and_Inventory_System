@@ -15,19 +15,19 @@
 							<input type="hidden" name="id">
 							<div class="form-group">
 								<label class="control-label">Name</label>
-								<input type="text" class="form-control" name="name">
+								<input type="text" class="form-control" name="name" required>
 							</div>
 							<div class="form-group">
 								<label class="control-label">Supply</label>
-								<input type="text" class="form-control" name="supply">
+								<input type="text" class="form-control" name="supply" >
 							</div>
 							<div class="form-group">
 								<label class="control-label">Contact</label>
-								<input type="text" class="form-control" name="contact">
+								<input type="text" class="form-control" name="contact" >
 							</div>
 							<div class="form-group">
 								<label class="control-label">Email</label>
-								<input type="email" class="form-control" name="qemail">
+								<input type="email" class="form-control" name="qemail" >
 							</div>
 							<div class="form-group">
 								<label class="control-label">Address</label>
