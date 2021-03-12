@@ -168,14 +168,29 @@ Class Action {
 		$data .= ", sku = '$sku' ";
 		$data .= ", category_id = '$category_id' ";
 		$data .= ", description = '$description' ";
-		$data .= ", price = '$price' ";
-
+		$data .= ", price = '$price' ";  
+		
+		if(isset($_FILES["uploadfile"]["name"])) {
+			$filename = $_FILES["uploadfile"]["name"];
+			$tempname = $_FILES["uploadfile"]["tmp_name"]; 
+			$folder = "assets/product_images/".$filename; 
+			$data .= ", photo = '$filename' ";
+			
+			if (move_uploaded_file($tempname, $folder)) 
+				$dd2 = false; 
+			else 
+				$dd2 = true; 
+		}
+		if (!empty($uploadfile2) && $dd2)
+			$data .= ", photo = '$uploadfile2' ";
 		if(empty($id)){
 			$save = $this->db->query("INSERT INTO product_list set ".$data);
 		}else{
 			$save = $this->db->query("UPDATE product_list set ".$data." where id=".$id);
 		}
-		if($save)
+		if($save && $dd2)
+			return 3;
+		else if ($save)
 			return 1;
 	}
 
