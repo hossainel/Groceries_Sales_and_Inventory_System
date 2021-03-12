@@ -145,6 +145,7 @@ Class Action {
 	function save_supplier(){
 		extract($_POST);
 		$data = " supplier_name = '$name' ";
+		$data .= ", supply = '$supply' ";
 		$data .= ", contact = '$contact' ";
 		$data .= ", qemail = '$qemail' ";
 		$data .= ", address = '$address' ";

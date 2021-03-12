@@ -14,24 +14,21 @@
 					<div class="card-body">
 							<input type="hidden" name="id">
 							<div class="form-group">
-								<label class="control-label">Supplier</label>
+								<label class="control-label">Name</label>
 								<input type="text" class="form-control" name="name">
 							</div>
-							
-					</div>
-					<div class="card-body">
+							<div class="form-group">
+								<label class="control-label">Supply</label>
+								<input type="text" class="form-control" name="supply">
+							</div>
 							<div class="form-group">
 								<label class="control-label">Contact</label>
 								<input type="text" class="form-control" name="contact">
 							</div>
-					</div>
-					<div class="card-body">
 							<div class="form-group">
 								<label class="control-label">Email</label>
 								<input type="email" class="form-control" name="qemail">
 							</div>
-					</div>
-					<div class="card-body">
 							<div class="form-group">
 								<label class="control-label">Address</label>
 								<textarea class="form-control" cols="30" rows="3" name="address"></textarea>
@@ -73,12 +70,13 @@
 									<td class="text-center"><?php echo $i++ ?></td>
 									<td class="">
 										<p>Name : <b><?php echo $row['supplier_name'] ?></b></p>
+										<p><small>Supply : <b><?php echo $row['supply'] ?></small></b></p>
 										<p><small>Contact : <b><?php echo $row['contact'] ?></b></small></p>
 										<p><small>Email : <b><?php echo $row['qemail'] ?></b></small></p>
 										<p><small>Address : <b><?php echo $row['address'] ?></b></small></p>
 									</td>
 									<td class="text-center">
-										<button class="btn btn-sm btn-primary edit_supplier" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['supplier_name'] ?>" data-contact="<?php echo $row['contact'] ?>" data-email="<?php echo $row['qemail'] ?>" data-address="<?php echo $row['address'] ?>" >Edit</button>
+										<button class="btn btn-sm btn-primary edit_supplier" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['supplier_name'] ?>" data-supply="<?php echo $row['supply'] ?>" data-contact="<?php echo $row['contact'] ?>" data-email="<?php echo $row['qemail'] ?>" data-address="<?php echo $row['address'] ?>" >Edit</button>
 										<button class="btn btn-sm btn-danger delete_supplier" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 									</td>
 								</tr>
@@ -139,6 +137,7 @@
 		cat.get(0).reset()
 		cat.find("[name='id']").val($(this).attr('data-id'))
 		cat.find("[name='name']").val($(this).attr('data-name'))
+		cat.find("[name='supply']").val($(this).attr('data-supply'))
 		cat.find("[name='contact']").val($(this).attr('data-contact'))
 		cat.find("[name='qemail']").val($(this).attr('data-email'))
 		cat.find("[name='address']").val($(this).attr('data-address'))
