@@ -1,4 +1,11 @@
 <?php include 'db_connect.php' ?>
+<style>
+.thumb-image {
+	height: 40px;
+	width: 40px;
+	border: 1px solid;
+}
+</style>
 <div class="container-fluid">
 	<div class="col-lg-12">
 		<div class="row">
@@ -12,6 +19,7 @@
 							<thead>
 								<th class="text-center">#</th>
 								<th class="text-center">Product Name</th>
+								<th class="text-center">Photo</th>
 								<th class="text-center">Stock In</th>
 								<th class="text-center">Stock Out</th>
 								<th class="text-center">Stock Available</th>
@@ -30,6 +38,17 @@
 								<tr <?php if ($available==0) echo 'style="color:red;"'; ?> >
 									<td class="text-center"><?php echo $i++ ?></td>
 									<td class=""><?php echo $row['name'] ?></td>
+									
+									<td><center>
+										<img class="thumb-image" src="assets/product_images/
+										<?php 
+											if (empty($row['photo']))
+												echo "thumb.png";
+											else
+												echo $row['photo'];
+										?>" alt="<?php echo $row['name'] ?>">
+									</center></td>
+									
 									<td class="text-right"><?php echo $inn ?></td>
 									<td class="text-right"><?php echo $out ?></td>
 									<td class="text-right"><?php echo $available ?></td>

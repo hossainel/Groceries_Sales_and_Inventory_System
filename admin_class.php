@@ -144,8 +144,14 @@ Class Action {
 	}
 	function save_supplier(){
 		extract($_POST);
+		if (isset($supply))	array_push($supply, $supply1);
+		else $supply = array($supply1);
+		$supply2 = array();
+		foreach(array_unique($supply) as $k=>$v)
+			array_push($supply2, $v);
+		$supplya = json_encode($supply2);
 		$data = " supplier_name = '$name' ";
-		$data .= ", supply = '$supply' ";
+		$data .= ", supply = '$supplya' ";
 		$data .= ", contact = '$contact' ";
 		$data .= ", qemail = '$qemail' ";
 		$data .= ", address = '$address' ";
@@ -312,6 +318,7 @@ Class Action {
 	function save_sales(){
 		extract($_POST);
 		$data = " customer_id = '$customer_id' ";
+		$data .= ", sellers_name = '$sellers_name' ";
 		$data .= ", total_amount = '$tamount' ";
 		$data .= ", amount_tendered = '$amount_tendered' ";
 		$data .= ", amount_change = '$change' ";

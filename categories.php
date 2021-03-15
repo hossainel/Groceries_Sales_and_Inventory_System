@@ -6,7 +6,7 @@
 		<div class="row">
 			<!-- FORM Panel -->
 			<div class="col-md-4">
-			<form action="" id="manage-category">
+			<form action="" id="manage-category" enctype="multipart/form-data">
 				<div class="card">
 					<div class="card-header">
 						    Category Form

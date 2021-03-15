@@ -14,12 +14,13 @@ if(isset($_GET['id'])){
 	<div class="col-lg-12">
 		<div class="card">
 			<div class="card-header">
-				<h4>Sales</h4>
+				<h4>Sales - <?=$_SESSION['login_name']?></h4>
 			</div>
 			<div class="card-body">
 				<form action="" id="manage-sales">
 					<input type="hidden" name="id" value="<?php echo isset($_GET['id']) ? $_GET['id'] : '' ?>">
 					<input type="hidden" name="ref_no" value="<?php echo isset($ref_no) ? $ref_no : '' ?>">
+					<input type="hidden" name="sellers_name" value="<?=$_SESSION['login_name']?>">
 					<div class="col-md-12">
 						<div class="row">
 							<div class="form-group col-md-5">

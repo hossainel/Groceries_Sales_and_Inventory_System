@@ -17,9 +17,17 @@
 								<label class="control-label">Name</label>
 								<input type="text" class="form-control" name="name" required>
 							</div>
+							
 							<div class="form-group">
 								<label class="control-label">Supply</label>
-								<input type="text" class="form-control" name="supply" >
+								<div class="form-group" id="supli2">  
+									<table class="table">  
+										<tr>  
+											<td><input type="text" name="supply1" id="supply1" class="form-control name_list" /></td>											
+											<td><button type="button" name="add" id="add" class="btn btn-success">+</button></td>  
+										</tr> 
+									</table>        
+								</div>  
 							</div>
 							<div class="form-group">
 								<label class="control-label">Contact</label>
@@ -39,7 +47,7 @@
 						<div class="row">
 							<div class="col-md-12">
 								<button class="btn btn-sm btn-primary col-sm-3 offset-md-3"> Save</button>
-								<button class="btn btn-sm btn-default col-sm-3" type="button" onclick="$('#manage-supplier').get(0).reset()"> Cancel</button>
+								<button class="btn btn-sm btn-default col-sm-3" type="button" id="xcancel" onclick="$('#manage-supplier').get(0).reset();$('#dynamic_field').remove()"> Cancel</button>
 							</div>
 						</div>
 					</div>
@@ -70,13 +78,31 @@
 									<td class="text-center"><?php echo $i++ ?></td>
 									<td class="">
 										<p>Name : <b><?php echo $row['supplier_name'] ?></b></p>
-										<p><small>Supply : <b><?php echo $row['supply'] ?></small></b></p>
+										<p><small>Supply : <b>
+										<?php
+											$supplies = json_decode ($row['supply']);
+											$supL= "";
+											$product = $conn->query("SELECT id, name FROM product_list  order by name asc");
+											
+											if(!empty($supplies)) {
+												$x = 1;
+												while (isset($supplies[$x])) {
+													$tmp = $supplies[$x];
+													$supL .= $tmp.", ";
+													$x++;
+												}				
+												$tmp = $supplies[0];
+												$supL .= $tmp;
+												echo $supL;
+											}
+										?>
+										</small></b></p>
 										<p><small>Contact : <b><?php echo $row['contact'] ?></b></small></p>
 										<p><small>Email : <b><?php echo $row['qemail'] ?></b></small></p>
 										<p><small>Address : <b><?php echo $row['address'] ?></b></small></p>
 									</td>
 									<td class="text-center">
-										<button class="btn btn-sm btn-primary edit_supplier" type="button" data-id="<?php echo $row['id'] ?>" data-name="<?php echo $row['supplier_name'] ?>" data-supply="<?php echo $row['supply'] ?>" data-contact="<?php echo $row['contact'] ?>" data-email="<?php echo $row['qemail'] ?>" data-address="<?php echo $row['address'] ?>" >Edit</button>
+										<button class="btn btn-sm btn-primary edit_supplier" type="button" data-id="<?=$row['id']?>" data-name="<?=$row['supplier_name']?>" data-supply="<?=$supL?>" data-contact="<?=$row['contact']?>" data-email="<?=$row['qemail']?>" data-address="<?=$row['address']?>" >Edit</button>
 										<button class="btn btn-sm btn-danger delete_supplier" type="button" data-id="<?php echo $row['id'] ?>">Delete</button>
 									</td>
 								</tr>
@@ -137,7 +163,20 @@
 		cat.get(0).reset()
 		cat.find("[name='id']").val($(this).attr('data-id'))
 		cat.find("[name='name']").val($(this).attr('data-name'))
-		cat.find("[name='supply']").val($(this).attr('data-supply'))
+		var jsonData = $(this).attr('data-supply');
+		var spltD = jsonData.split(", ");
+		sups = $('#supply1').val(spltD[0]);
+		$('#dynamic_field').remove();
+		var sQ = spltD.length;
+		if (sQ>1) {
+			$('#supli2').append('<table class="table" id="dynamic_field"></table>');
+			var t=1;
+			while(sQ>t) {
+				$('#dynamic_field').append('<tr class="sub_butt" id="supply_row'+t+'" ><td><input type="text" name="supply[]" class="form-control name_list" value="'+spltD[t]+'" /></td><td><button type="button" name="remove" id="'+t+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+				t++;
+			}
+		}	
+		
 		cat.find("[name='contact']").val($(this).attr('data-contact'))
 		cat.find("[name='qemail']").val($(this).attr('data-email'))
 		cat.find("[name='address']").val($(this).attr('data-address'))
@@ -163,4 +202,21 @@
 			}
 		})
 	}
+	//add more function
+	$(document).ready(function(){  
+      var i=1;  
+      $('#add').click(function(){  
+           i++;  
+		   val = document.getElementById("dynamic_field");
+		   if (!val) {
+				$('#supli2').append('<table class="table" id="dynamic_field"></table>');
+		   }
+           $('#dynamic_field').prepend('<tr class="sub_butt" id="supply_row'+i+'" ><td><input type="text" name="supply[]" class="form-control name_list" /></td><td><button type="button" name="remove" id="'+i+'" class="btn btn-danger btn_remove">X</button></td></tr>');  
+      });  
+      $(document).on('click', '.btn_remove', function(){  
+           var button_id = $(this).attr("id");   
+           $('#supply_row'+button_id+'').remove();  
+      });  
+	});  
+
 </script>

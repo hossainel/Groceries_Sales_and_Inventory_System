@@ -70,9 +70,13 @@ $query = $conn->query("SELECT * FROM system_settings limit 1")->fetch_array();
 
   <main id="main" class=" bg-dark">
   		<div id="login-left">
+			<!-- img -- >
+			<img class="img img-fluid" style="height:100%;width:100%" src="./assets/img/base.jpg">
+			<!-- start logo -->
   			<div class="logo">
   				<span class="fa fa-coins"></span>
   			</div>
+			<!-- end logo -->
   		</div>
   		<div id="login-right">
   			<div class="card col-md-8">
